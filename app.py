@@ -1,5 +1,4 @@
-from dotenv import load_dotenv
-load_dotenv()
+
 import streamlit as st
 import os
 from Bio import Entrez
@@ -11,7 +10,8 @@ import time
 
 # Provide your email to use Entrez
 Entrez.email = "your-email@example.com"
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+GOOGLE_API_KEY="AIzaSyAimoYBCAPRKN773YUqBwokefkbt0x7Mps"
+genai.configure(api_key=GOOGLE_API_KEY)
 model=genai.GenerativeModel("gemini-pro")
 
 def get_gemini_response(question,prompt):
