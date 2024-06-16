@@ -87,9 +87,9 @@ def batch_fetch_details(id_list, batch_size=200):
 # Streamlit UI
 st.title("PubMed Article Search")
 
-
+st.subheader("Ask a question and I will give you relevant articles on from Pubmed")
 # Input fields for the two words
-question = st.text_input("ask a question")
+question = st.text_input("Ask a question")
 
 
 if st.button("Search"):
