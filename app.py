@@ -52,7 +52,7 @@ you need to querry pubmed meshterms , abstracts , title feild , for example harm
 
 
 
-the python querry will be like   '"probiotics"[All Fields] AND "adverse effects"[All Fields]' search_term2 = '"probiotics"[All Fields] AND (side effect* OR complication*)
+the python querry will be like   '"probiotics"[All Fields] AND "adverse effects"[All Fields] AND (side effect* OR complication*)
 
 or for example how is Lactobacillus related to human immunity ,
  query will be "Lactobacillus"[All Fields] AND "immunity"[All Fields] AND TLR[All Fields] and IgA[All Fields] AND  cytokine[All Fields] AND  "humans"[All Fields]'
