@@ -1,4 +1,4 @@
 biopython
-google-generative-ai # Assuming you use Google Cloud for GenerativeAI
+google-generativeai # Assuming you use Google Cloud for GenerativeAI
 streamlit
 dotenv
