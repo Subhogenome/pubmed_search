@@ -19,7 +19,7 @@ def get_gemini_response(question,prompt):
     response = model.generate_content([prompt,question])
     return response
 
-def search_pubmed(term, retmax=10):  # Adjust retmax to 10
+def search_pubmed(term, retmax=1000):  # Adjust retmax to 10
     # Search PubMed with the specified term and return up to retmax results
     handle = Entrez.esearch(db="pubmed", term=term, retmax=retmax)
     record = Entrez.read(handle)
