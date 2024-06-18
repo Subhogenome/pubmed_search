@@ -105,9 +105,11 @@ if st.button("Search"):
    new='({})'  # You want to format this string
    search_term = new.format(response.text)  # Format the string with response.text
   
-   id_list = search_pubmed(search_term, retmax=500)
+   id_list = search_pubmed(search_term, retmax=1000)
+   
 
    if id_list:
+        st.write(" I found {} articles matching your question".format(len(id_list)))
         all_articles = batch_fetch_details(id_list)
         for articles in all_articles:
             titles_and_articles = extract_titles_and_articles(articles)
