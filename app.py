@@ -42,6 +42,13 @@ def batch_fetch_details(id_list, batch_size=200):
         all_records.append(records)
         time.sleep(1)  # Respect rate limits by pausing between requests
     return all_records
+import re
+def extract_titles_and_articles(records):
+    # Use regular expression to find all titles and their corresponding articles
+    pattern = re.compile(r'(TI  - .*?)(?=\nTI  -|\Z)', re.DOTALL)
+    matches = pattern.findall(records)
+    titles_and_articles = [(re.search(r'TI  - (.*?)\n', match).group(1), match) for match in matches]
+    return titles_and_articles
 
 prompt = """
 You are an expert in converting English questions to python pubmed querry!
@@ -100,9 +107,14 @@ if st.button("Search"):
   
    id_list = search_pubmed(search_term, retmax=500)
 
-   if id_list:
-    all_articles = batch_fetch_details(id_list)
-    for articles in all_articles:
-        st.write(articles)
+    if id_list:
+        all_articles = batch_fetch_details(id_list)
+        for articles in all_articles:
+            titles_and_articles = extract_titles_and_articles(articles)
+            for article in titles_and_articles:
+    
+                st.subheader(article[1])  # Title
+                st.write("------")
+                st.write(article[0])
    else:
     print("No articles found.")
