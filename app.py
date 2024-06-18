@@ -92,7 +92,7 @@ def batch_fetch_details(id_list, batch_size=200):
         time.sleep(1)  # Respect rate limits by pausing between requests
     return all_records
 # Streamlit UI
-st.title("PubMed Article Search")
+st.title("PubMed.AI")
 
 st.subheader("Ask a question and I will give you relevant articles  from Pubmed")
 # Input fields for the two words
