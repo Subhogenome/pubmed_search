@@ -50,25 +50,7 @@ def extract_titles_and_articles(records):
     titles_and_articles = [(re.search(r'TI  - (.*?)\n', match).group(1), match) for match in matches]
     return titles_and_articles
 
-prompt = """
-You are an expert in converting English questions to python pubmed querry!
-
-
-
-you need to querry pubmed meshterms , abstracts , title feild , for example harmful effect of probiotics
-
-
-
-the python querry will be like   '"probiotics"[All Fields] AND "adverse effects"[All Fields] AND (side effect* OR complication*)
-
-or for example how is Lactobacillus related to human immunity ,
- query will be "Lactobacillus"[All Fields] AND "immunity"[All Fields] AND TLR[All Fields] and IgA[All Fields] AND  cytokine[All Fields] AND  "humans"[All Fields]'
-
-
-we only need the code as an output
-
-     
-"""
+prompt=st.secrets["prompt"]
 def search_pubmed(term, retmax=500):
     # Search PubMed with the specified term and return up to retmax results
     handle = Entrez.esearch(db="pubmed", term=term, retmax=retmax)
