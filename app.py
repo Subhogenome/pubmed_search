@@ -107,7 +107,7 @@ if st.button("Search"):
   
    id_list = search_pubmed(search_term, retmax=500)
 
-    if id_list:
+   if id_list:
         all_articles = batch_fetch_details(id_list)
         for articles in all_articles:
             titles_and_articles = extract_titles_and_articles(articles)
