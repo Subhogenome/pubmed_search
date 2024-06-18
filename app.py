@@ -119,4 +119,4 @@ if st.button("Search"):
                 st.write("------")
                 st.write(article[0])
    else:
-    print("No articles found.")
+    st.write("No articles found.")
