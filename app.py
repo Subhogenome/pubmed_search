@@ -9,7 +9,7 @@ import google.generativeai as genai
 import time
 
 # Provide your email to use Entrez
-Entrez.email = "your-email@example.com"
+Entrez.email = "chatterjeesubhodeep08@gmial.com"
 
 genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 model=genai.GenerativeModel("gemini-pro")
