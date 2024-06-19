@@ -83,7 +83,7 @@ question = st.text_input("Ask a question")
 
 if st.button("Search"):
    response=get_gemini_response(question,prompt)
-
+   st.write(response)
    new='({})'  # You want to format this string
    search_term = new.format(response.text)  # Format the string with response.text
   
