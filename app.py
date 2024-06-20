@@ -19,7 +19,7 @@ def get_gemini_response(question,prompt):
     response = model.generate_content([prompt,question])
     return response
 
-def search_pubmed(term, retmax=1000):  # Adjust retmax to 10
+def search_pubmed(term, retmax=10000):  # Adjust retmax to 10
     # Search PubMed with the specified term and return up to retmax results
     handle = Entrez.esearch(db="pubmed", term=term, retmax=retmax)
     record = Entrez.read(handle)
@@ -87,7 +87,7 @@ if st.button("Search"):
    new='({})'  # You want to format this string
    search_term = new.format(response.text)  # Format the string with response.text
   
-   id_list = search_pubmed(search_term, retmax=1000)
+   id_list = search_pubmed(search_term, retmax=10000)
    
 
    if id_list:
