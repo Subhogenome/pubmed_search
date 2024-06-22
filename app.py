@@ -19,29 +19,10 @@ def get_gemini_response(question,prompt):
     response = model.generate_content([prompt,question])
     return response
 
-def search_pubmed(term, retmax=10000):  # Adjust retmax to 10
-    # Search PubMed with the specified term and return up to retmax results
-    handle = Entrez.esearch(db="pubmed", term=term, retmax=retmax)
-    record = Entrez.read(handle)
-    handle.close()
-    return record['IdList']
 
-def fetch_details(id_list):
-    ids = ",".join(id_list)
-    handle = Entrez.efetch(db="pubmed", id=ids, rettype="medline", retmode="text")
-    records = handle.read()
-    handle.close()
-    return records
 
-def batch_fetch_details(id_list, batch_size=300):
-    all_records = []
-    for start in range(0, len(id_list), batch_size):
-        end = min(start + batch_size, len(id_list))
-        batch_ids = id_list[start:end]
-        records = fetch_details(batch_ids)
-        all_records.append(records)
-        time.sleep(1)  # Respect rate limits by pausing between requests
-    return all_records
+
+
 import re
 def extract_titles_and_articles(records):
     # Use regular expression to find all titles and their corresponding articles
