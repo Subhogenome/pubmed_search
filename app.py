@@ -66,8 +66,9 @@ if st.button("Search"):
    response=get_gemini_response(question,prompt)
 
    new='({})'  # You want to format this string
+
    search_term = new.format(response.text)  # Format the string with response.text
-  
+   st.write(searcg_term)
    id_list = search_pubmed(search_term, retmax=20)
    
 
