@@ -68,7 +68,7 @@ if st.button("Search"):
    new='({})'  # You want to format this string
 
    search_term = new.format(response.text)  # Format the string with response.text
-   st.write(searcg_term)
+   st.write(search_term)
    id_list = search_pubmed(search_term, retmax=20)
    
 
