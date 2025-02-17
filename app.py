@@ -5,7 +5,7 @@ from Bio import Entrez
 from Bio import SeqIO
 import google.generativeai as genai
 
-
+from groq import Groq
 import time
 
 # Provide your email to use Entrez
