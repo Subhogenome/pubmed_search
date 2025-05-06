@@ -12,7 +12,7 @@ import time
 Entrez.email = "chatterjeesubhodeep08@gmial.com"
 
 genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-model=genai.GenerativeModel("gemini-2.5-pro-preview-03-25")
+model=genai.GenerativeModel("gemini-2.5-pro-exp-03-25")
 
 def get_gemini_response(question,prompt):
    
