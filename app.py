@@ -45,7 +45,7 @@ def fetch_details(id_list):
     handle.close()
     return records
 
-def batch_fetch_details(id_list, batch_size=200):
+def batch_fetch_details(id_list, batch_size=10):
     all_records = []
     for start in range(0, len(id_list), batch_size):
         end = min(start + batch_size, len(id_list))
