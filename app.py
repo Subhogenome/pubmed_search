@@ -67,7 +67,7 @@ prompt_template = PromptTemplate(
     input_variables=["abstract"],
     template="""
 You are a biomedical knowledge graph engineer. Given a PubMed article abstract, output ONLY the Neo4j Cypher query that:
-- Extracts key biomedical entities (e.g. physicians, patients, scores, institutions, interventions).
+- Extracts key biological entities which can answet the question {question}.
 - Establishes relationships (edges) based on the context.
 - Represents it as a hypergraph using Neo4j Cypher syntax.
 - Ensure that all variables in the Cypher query (e.g., author1, author2, inst1, concept1, etc.) are uniquely named to avoid redeclaration errors.
@@ -167,7 +167,7 @@ if st.button("Search"):
    id_list = search_pubmed(output_text, retmax=10)
    all_articles = batch_fetch_details(id_list)
    
-   cypher_query = generate_cypher_query(str(all_articles))
+   cypher_query = generate_cypher_query(question,str(all_articles))
    #print("🧾 Generated Cypher Query:\n", cypher_query)
    if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
