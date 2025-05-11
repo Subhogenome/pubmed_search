@@ -94,7 +94,7 @@ if st.button("Search"):
    id_list = search_pubmed(output_text, retmax=10)
    
 
-  if id_list:
+   if id_list:
     with st.expander("🔍 See Evidence"):
         # Fetch detailed article data from PubMed
         all_articles = batch_fetch_details(id_list)
@@ -106,5 +106,5 @@ if st.button("Search"):
                 st.subheader(title)  # Display title
                 st.markdown("---")   # Horizontal separator
                 st.write(abstract)   # Display abstract
- else:
+  else:
     st.info("No articles found matching your query.")
