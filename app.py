@@ -61,6 +61,8 @@ few_shot_prompt = FewShotPromptTemplate(
 )
 
 
+from langchain.prompts import PromptTemplate
+
 prompt_template = PromptTemplate(
     input_variables=["abstract"],
     template="""
@@ -68,24 +70,14 @@ You are a biomedical knowledge graph engineer. Given a PubMed article abstract, 
 - Extracts key biomedical entities (e.g. physicians, patients, scores, institutions, interventions).
 - Establishes relationships (edges) based on the context.
 - Represents it as a hypergraph using Neo4j Cypher syntax.
-- Output only the Cypher query no extra text like " Here is the Neo4j Cypher query:".
--  Only return the query string as the answer, no explanation or extra text
+- Ensure that all variables in the Cypher query (e.g., author1, author2, inst1, concept1, etc.) are uniquely named to avoid redeclaration errors.
+- Output only the Cypher query string. Do not include any additional text.
 
-Example 1:
-Abstract:
-Hospital family physicians manage complex cases. This study assesses patient complexity before and after care by a health team using PCAM. 38 patients were studied; 24 admitted, 14 treated as outpatients. Complexity dropped from 36.9 to 23.7. Scores improved across domains: health, social, communication, coordination.
-
-Cypher Output:
-CREATE (:CommunityHealthCenter {{name: 'Community Health Centers'}})
-CREATE (:HospitalFamilyPhysician {{role: 'Hospital Family Physicians'}})
-CREATE (:CareTeam {{type: 'Multidisciplinary Care Team'}})
-CREATE (:Patient {{status: 'Referred'}})
-...
 Abstract:
 {abstract}
 """
-
 )
+
 
 chain = LLMChain(llm=model, prompt=prompt_template)
 
