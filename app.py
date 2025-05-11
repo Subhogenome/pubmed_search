@@ -13,9 +13,9 @@ from langchain.prompts import FewShotPromptTemplate, PromptTemplate
 from neo4j import GraphDatabase
 import networkx as nx
 import matplotlib.pyplot as plt
-NEO4J_URI = "neo4j+s://a0bc7ea0.databases.neo4j.io"
-NEO4J_USERNAME = "neo4j"
-NEO4J_PASSWORD = "1kySNKajMIyVuTOq_gkDVlu4RH0kXvIOJVzqU6PFsQM" 
+NEO4J_URI = st.secrets["NEO4J_URI"]
+NEO4J_USERNAME = st.secrets["NEO4J_USERNAME"]
+NEO4J_PASSWORD = st.secrets["NEO4J_PASSWORD"]
 # Provide your email to use Entrez
 Entrez.email = "chatterjeesubhodeep08@gmial.com"
 api ="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"
