@@ -101,8 +101,8 @@ def build_networkx_graph(records):
 # Build graph
 
 
-def generate_cypher_query(abstract: str,question) -> str:
-    return chain.run(question,abstract=abstract).strip()
+def generate_cypher_query(abstract: str, question: str) -> str:
+    return chain.run(abstract=abstract, question=question).strip()
 
 def run_cypher_in_neo4j(cypher_query: str):
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
