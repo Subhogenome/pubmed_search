@@ -123,7 +123,7 @@ def run_cypher_in_neo4j(cypher_query: str):
     with driver.session() as session:
         try:
             session.run(cypher_query)
-            st.write("✅ Query successfully executed in Neo4j.")
+           # st.write("✅ Query successfully executed in Neo4j.")
         except Exception as e:
             st.write("❌ Failed to execute query:", e)
         finally:
@@ -177,7 +177,7 @@ if st.button("Search"):
    response = model.invoke(formatted_prompt)
    output_text = response.content.strip() 
     # Format the string with response.text
-   st.write(output_text)
+   #st.write(output_text)
    id_list = search_pubmed(output_text, retmax=10)
    all_articles = batch_fetch_details(id_list)
    
@@ -185,13 +185,13 @@ if st.button("Search"):
    #print("🧾 Generated Cypher Query:\n", cypher_query)
    if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
-     st.write(converted)
+     #st.write(converted)
      run_cypher_in_neo4j(converted)
    elif cypher_query.startswith('```') and cypher_query.endswith('```'):
-        st.write(cypher_query[3:-3])
+       # st.write(cypher_query[3:-3])
         run_cypher_in_neo4j(cypher_query[3:-3])
    else:
-        st.write(cypher_query)
+       # st.write(cypher_query)
         run_cypher_in_neo4j(cypher_query)    
    with driver.session() as session:
     records = session.read_transaction(fetch_graph)
