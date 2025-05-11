@@ -7,17 +7,40 @@ import google.generativeai as genai
 
 from groq import Groq
 import time
-
+from langchain_groq import ChatGroq
+from langchain.prompts import FewShotPromptTemplate, PromptTemplate
 # Provide your email to use Entrez
 Entrez.email = "chatterjeesubhodeep08@gmial.com"
+api ="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"
+model =ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct",api_key=api)
+examples = [
+    {"input": "harmful effect of probiotics", "output": '"probiotics"[All Fields] AND "adverse effects"[All Fields] AND (side effect* OR complication*)'},
+    {"input": "how is Lactobacillus related to human immunity", "output": '"Lactobacillus"[All Fields] AND ("immunity"[All Fields] OR TLR[All Fields] and IgA[All Fields] OR  cytokine[All Fields]) OR  "humans"[All Fields]'},
+    {"input": "Human", "output": '"Human"[All Fields] OR "Homo Sapeins"[All Fields] OR "Humans"'}
+]
 
-genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
-model=genai.GenerativeModel("gemini-2.5-pro-exp-03-25")
+# How to format each example
+example_prompt = PromptTemplate(
+    input_variables=["input", "output"],
+    template="Q: {input}\nA: {output}"
+)
 
-def get_gemini_response(question,prompt):
-   
-    response = model.generate_content([prompt,question])
-    return response
+# Corrected: Single string as prefix
+prefix = (
+    "You are an expert in converting English questions to Python PubMed query.\n"
+    "You must create PubMed-compatible queries using MeSH terms, abstract, and title fields.\n"
+    "Only return the query string as the answer, no explanation or extra text.\n"
+    "Here are some examples:"
+)
+
+# Create the few-shot prompt template
+few_shot_prompt = FewShotPromptTemplate(
+    examples=examples,
+    example_prompt=example_prompt,
+    prefix=prefix,
+    suffix="Q: {input}\nA:",
+    input_variables=["input"]
+)
 
 
 
@@ -63,13 +86,14 @@ question = st.text_input("Ask a question")
 
 
 if st.button("Search"):
-   response=get_gemini_response(question,prompt)
+   formatted_prompt = few_shot_prompt.format(input=question)
+   output_text = response.content.strip() 
 
    new='({})'  # You want to format this string
 
    search_term = new.format(response.text)  # Format the string with response.text
    st.write(search_term)
-   id_list = search_pubmed(search_term, retmax=20)
+   id_list = search_pubmed(output_text, retmax=10)
    
 
    if id_list:
