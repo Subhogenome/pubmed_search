@@ -64,28 +64,7 @@ few_shot_prompt = FewShotPromptTemplate(
 from langchain.prompts import PromptTemplate
 prompt_template = PromptTemplate(
     input_variables=["abstract", "question"],
-    template="""
-You are a biomedical knowledge graph engineer. Given a PubMed article abstract, generate a **valid Cypher query** to represent the extracted knowledge as a **hypergraph** in Neo4j.
-
-Your output must follow these exact rules:
-
-- Perform NER to extract key biological entities, concepts, or terms relevant to answering the question: "{question}".
-- Create nodes for:
-  - **:Publication** – with a `title` property
-  - **:Concept**, **:Entity**, or **:Condition** – with a `name` property
-  - **:Hypergraph** – as a grouping mechanism with a `name` property
-- Use `MERGE` for all nodes to prevent duplication.
-- Use **direct relationships**, not intermediate `:Relationship` nodes.
-  - Examples: `(:Concept)-[:AFFECTS]->(:Condition)`, `(:Entity)-[:MENTIONS]->(:Concept)`
-- Do NOT use non-primitive property types (e.g., objects, nodes as properties).
-- Avoid using `MATCH`. Only use `MERGE` (and `CREATE` if needed).
-- Use unique variable names for all nodes and relationships (e.g., `p1`, `c1`, `e1`, `h1`).
-- Connect concepts/entities to the hypergraph using `(:Hypergraph)-[:CONTAINS]->(:EntityOrConcept)`.
-- Output ONLY the Cypher query (no markdown, no code block, no explanation).
-
-Abstract:
-{abstract}
-"""
+    template=st.secrets["prompt"]
 )
 
 
