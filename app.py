@@ -8,6 +8,7 @@ import google.generativeai as genai
 from groq import Groq
 import time
 from langchain_groq import ChatGroq
+from langchain.chains import LLMChain
 from langchain.prompts import FewShotPromptTemplate, PromptTemplate
 from neo4j import GraphDatabase
 import networkx as nx
@@ -84,7 +85,6 @@ Abstract:
 """
 
 )
-
 
 chain = LLMChain(llm=model, prompt=prompt_template)
 
