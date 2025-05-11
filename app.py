@@ -87,8 +87,9 @@ question = st.text_input("Ask a question")
 
 if st.button("Search"):
    formatted_prompt = few_shot_prompt.format(input=question)
+   response = model.invoke(formatted_prompt)
    output_text = response.content.strip() 
-
+   
    new='({})'  # You want to format this string
 
    search_term = new.format(response.text)  # Format the string with response.text
