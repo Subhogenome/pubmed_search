@@ -4,3 +4,6 @@ streamlit
 groq
 langchain
 langchain_groq 
+neo4j
+networkx
+matplotlib
