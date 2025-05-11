@@ -192,7 +192,7 @@ if st.button("Search"):
         run_cypher_in_neo4j(cypher_query)    
    with driver.session() as session:
     records = session.read_transaction(fetch_graph)
- #   G = build_networkx_graph(records)
+    G = build_networkx_graph(records)
   
    with st.expander("🔍 See Evidence"):
 
