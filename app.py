@@ -69,6 +69,7 @@ You are a biomedical knowledge graph engineer. Given a PubMed article abstract, 
 - Establishes relationships (edges) based on the context.
 - Represents it as a hypergraph using Neo4j Cypher syntax.
 - Output only the Cypher query no extra text like " Here is the Neo4j Cypher query:".
+-  "Only return the query string as the answer, no explanation or extra text.\n"
 
 Example 1:
 Abstract:
