@@ -171,7 +171,7 @@ if st.button("Search"):
    #print("🧾 Generated Cypher Query:\n", cypher_query)
    if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
-     #print(converted)
+     print(converted[:200])
      run_cypher_in_neo4j(converted)
    elif cypher_query.startswith('```') and cypher_query.endswith('```'):
         run_cypher_in_neo4j(cypher_query[3:-3])
