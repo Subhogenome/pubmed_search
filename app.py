@@ -88,6 +88,26 @@ Abstract:
 
 chain = LLMChain(llm=model, prompt=prompt_template)
 
+
+def fetch_graph(tx):
+    query = """
+    MATCH (n)-[r]->(m)
+    RETURN n.name AS from, type(r) AS rel, m.name AS to
+    """
+    return list(tx.run(query))
+
+def build_networkx_graph(records):
+    G = nx.DiGraph()
+    for record in records:
+        G.add_edge(record["from"], record["to"], label=record["rel"])
+    return G
+
+# Fetch data
+
+
+# Build graph
+G = build_networkx_graph(records)
+
 def generate_cypher_query(abstract: str) -> str:
     return chain.run(abstract=abstract).strip()
 
@@ -153,19 +173,21 @@ if st.button("Search"):
    st.write(output_text)
    id_list = search_pubmed(output_text, retmax=10)
    all_articles = batch_fetch_details(id_list)
-   with st.expander("🔍 See Evidence"):
-    cypher_query = generate_cypher_query(str(all_articles))
-    print("🧾 Generated Cypher Query:\n", cypher_query)
-    if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
+   
+   cypher_query = generate_cypher_query(str(all_articles))
+   print("🧾 Generated Cypher Query:\n", cypher_query)
+   if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
      print(converted)
      run_cypher_in_neo4j(converted)
-    elif cypher_query.startswith('```') and cypher_query.endswith('```'):
+   elif cypher_query.startswith('```') and cypher_query.endswith('```'):
         run_cypher_in_neo4j(cypher_query[3:-3])
-    else:
+   else:
         run_cypher_in_neo4j(cypher_query)    
+   with driver.session() as session:
+    records = session.read_transaction(fetch_graph)
   
-   
+   with st.expander("🔍 See Evidence"):
 
     if id_list:
    
