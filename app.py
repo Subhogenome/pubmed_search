@@ -96,7 +96,10 @@ chain = LLMChain(llm=model, prompt=prompt_template)
 def fetch_graph(tx):
     query = """
     MATCH (n)-[r]->(m)
-    RETURN n.name AS from, type(r) AS rel, m.name AS to
+    RETURN 
+        coalesce(n.name, n.title) AS from, 
+        type(r) AS rel, 
+        coalesce(m.name, m.title) AS to
     """
     return list(tx.run(query))
 
