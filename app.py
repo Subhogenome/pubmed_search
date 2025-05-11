@@ -196,6 +196,18 @@ if st.button("Search"):
    with driver.session() as session:
     records = session.read_transaction(fetch_graph)
     G = build_networkx_graph(records)
+    # Draw the graph
+    plt.figure(figsize=(15, 10))
+    pos = nx.spring_layout(G, k=0.5, iterations=50)
+    edge_labels = nx.get_edge_attributes(G, 'label')
+
+    nx.draw(G, pos, with_labels=True, node_color='skyblue', node_size=3000, font_size=10, font_weight='bold', edge_color='gray', arrows=True)
+    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=8)
+
+    plt.title("Neo4j Graph Visualization")
+    plt.axis('off')
+    plt.tight_layout()
+    st.pyplot(plt)
   
    with st.expander("🔍 See Evidence"):
 
