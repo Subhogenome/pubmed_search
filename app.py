@@ -9,10 +9,20 @@ from groq import Groq
 import time
 from langchain_groq import ChatGroq
 from langchain.prompts import FewShotPromptTemplate, PromptTemplate
+from neo4j import GraphDatabase
+import networkx as nx
+import matplotlib.pyplot as plt
+NEO4J_URI = "neo4j+s://a0bc7ea0.databases.neo4j.io"
+NEO4J_USERNAME = "neo4j"
+NEO4J_PASSWORD = "1kySNKajMIyVuTOq_gkDVlu4RH0kXvIOJVzqU6PFsQM" 
 # Provide your email to use Entrez
 Entrez.email = "chatterjeesubhodeep08@gmial.com"
 api ="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"
 model =ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct",api_key=api)
+def clear_db(tx):
+    tx.run("MATCH (n) DETACH DELETE n")
+driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
+
 examples = [
     {"input": "harmful effect of probiotics", "output": '"probiotics"[All Fields] AND "adverse effects"[All Fields] AND (side effect* OR complication*)'},
     {"input": "how is Lactobacillus related to human immunity", "output": '"Lactobacillus"[All Fields] AND ("immunity"[All Fields] OR TLR[All Fields] and IgA[All Fields] OR  cytokine[All Fields]) OR  "humans"[All Fields]'},
@@ -86,6 +96,8 @@ question = st.text_input("Ask a question")
 
 
 if st.button("Search"):
+   with driver.session() as session:
+    session.execute_write(clear_db)
    formatted_prompt = few_shot_prompt.format(input=question)
    response = model.invoke(formatted_prompt)
    output_text = response.content.strip() 
