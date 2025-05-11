@@ -178,10 +178,10 @@ if st.button("Search"):
    
         # Fetch detailed article data from PubMed
         all_articles = batch_fetch_details(id_list)
-        formatted_prompt_graph = few_shot_prompt_graph.format(input=str(all_articles))
-        response_g = model.invoke(formatted_prompt_graph)
-        cypher_query = response_g.content.strip() 
-        run_query(cypher_query)
+       # formatted_prompt_graph = few_shot_prompt_graph.format(input=str(all_articles))
+       # response_g = model.invoke(formatted_prompt_graph)
+      #  cypher_query = response_g.content.strip() 
+      #  run_query(cypher_query)
         # Extract and display article titles and abstracts
         for articles in all_articles:
             titles_and_articles = extract_titles_and_articles(articles)
