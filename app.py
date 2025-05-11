@@ -62,16 +62,17 @@ few_shot_prompt = FewShotPromptTemplate(
 
 
 from langchain.prompts import PromptTemplate
-
 prompt_template = PromptTemplate(
-    input_variables=["abstract"],
+    input_variables=["abstract", "question"],
     template="""
 You are a biomedical knowledge graph engineer. Given a PubMed article abstract, output ONLY the Neo4j Cypher query that:
-- Profrom name entity regonition to Extract key biological entities which can answer the question {question}.
-- Establishes relationships (edges) based on  between the entities the question {question}.
-- Represents these entities as a hypergraph using Neo4j Cypher syntax.
-- Ensure that all variables in the Cypher queryare uniquely named to avoid redeclaration errors.
-- Output only the Cypher query string. Do not include any additional text.
+
+- Performs named entity recognition (NER) to extract key biological entities relevant to the question: "{question}".
+- Establishes relationships (edges) based on the context and semantics in the abstract.
+- Represents these entities and relationships as a hypergraph using Neo4j Cypher syntax.
+- Ensures that **all node and relationship variable names** (e.g., gene1, protein2, disease3, rel1, etc.) are **uniquely named** to avoid redeclaration errors.
+- Use numbered suffixes or UUID-style postfixes to make variable names unique if needed.
+- Output only the valid Cypher query string. Do not include any explanations, comments, or non-Cypher text.
 
 Abstract:
 {abstract}
