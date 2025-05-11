@@ -106,5 +106,5 @@ if st.button("Search"):
                 st.subheader(title)  # Display title
                 st.markdown("---")   # Horizontal separator
                 st.write(abstract)   # Display abstract
-  else:
+   else:
     st.info("No articles found matching your query.")
