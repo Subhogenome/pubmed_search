@@ -67,12 +67,14 @@ prompt_template = PromptTemplate(
     template="""
 You are a biomedical knowledge graph engineer. Given a PubMed article abstract, output ONLY the Neo4j Cypher query that:
 
-- Performs named entity recognition (NER) to extract key biological entities relevant to the question: "{question}".
-- Establishes relationships (edges) based on the context and semantics in the abstract.
-- Represents these entities and relationships as a hypergraph using Neo4j Cypher syntax.
-- Ensures that **all node and relationship variable names** (e.g., gene1, protein2, disease3, rel1, etc.) are **uniquely named** to avoid redeclaration errors.
-- Use numbered suffixes or UUID-style postfixes to make variable names unique if needed.
-- Output only the valid Cypher query string. Do not include any explanations, comments, or non-Cypher text.
+- Performs named entity recognition to extract key biological entities that help answer the question: "{question}".
+- Establishes relationships (edges) between these entities based on the context of the abstract.
+- Represents the extracted knowledge as a **hypergraph** using **Neo4j Cypher** syntax.
+- Use **MERGE** to declare all nodes to ensure they are created if they don't already exist.
+- Use **CREATE** or **MERGE** for relationships as appropriate.
+- Ensure all variables (e.g., `p1`, `c1`, `e1`, etc.) are uniquely named to avoid redeclaration errors.
+- Do **not** use `MATCH` for node creation.
+- Output **only** the Cypher query as a plain string without triple quotes, markdown, or explanations.
 
 Abstract:
 {abstract}
