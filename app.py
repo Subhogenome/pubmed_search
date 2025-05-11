@@ -168,7 +168,7 @@ if st.button("Search"):
    all_articles = batch_fetch_details(id_list)
    
    cypher_query = generate_cypher_query(str(all_articles))
-   print("🧾 Generated Cypher Query:\n", cypher_query)
+   #print("🧾 Generated Cypher Query:\n", cypher_query)
    if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
      #print(converted)
