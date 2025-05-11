@@ -90,7 +90,7 @@ if st.button("Search"):
    response = model.invoke(formatted_prompt)
    output_text = response.content.strip() 
     # Format the string with response.text
-   st.write(output_text
+   st.write(output_text)
    id_list = search_pubmed(output_text, retmax=10)
    
 
