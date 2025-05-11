@@ -154,7 +154,7 @@ if st.button("Search"):
    id_list = search_pubmed(output_text, retmax=10)
    all_articles = batch_fetch_details(id_list)
    with st.expander("🔍 See Evidence"):
-    cypher_query = generate_cypher_query(pubmed_abstract)
+    cypher_query = generate_cypher_query(str(all_articles))
     print("🧾 Generated Cypher Query:\n", cypher_query)
     if cypher_query.startswith('"""') and cypher_query.endswith('"""'):
      converted = '"' + cypher_query[3:-3] + '"'
