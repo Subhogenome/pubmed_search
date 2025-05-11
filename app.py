@@ -109,7 +109,7 @@ def run_cypher_in_neo4j(cypher_query: str):
     with driver.session() as session:
         try:
             session.run(cypher_query)
-            print("✅ Query successfully executed in Neo4j.")
+            st.write("✅ Query successfully executed in Neo4j.")
         except Exception as e:
             st.write("❌ Failed to execute query:", e)
         finally:
