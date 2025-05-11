@@ -106,7 +106,7 @@ def build_networkx_graph(records):
 
 
 # Build graph
-G = build_networkx_graph(records)
+
 
 def generate_cypher_query(abstract: str) -> str:
     return chain.run(abstract=abstract).strip()
@@ -186,6 +186,7 @@ if st.button("Search"):
         run_cypher_in_neo4j(cypher_query)    
    with driver.session() as session:
     records = session.read_transaction(fetch_graph)
+    G = build_networkx_graph(records)
   
    with st.expander("🔍 See Evidence"):
 
