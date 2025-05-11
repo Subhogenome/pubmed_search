@@ -95,7 +95,7 @@ if st.button("Search"):
    
 
    if id_list:
-     with st.expander("See Evidence"):
+    # with st.expander("See Evidence"):
        # st.write(" I found {} articles matching your question".format(len(id_list)))
         all_articles = batch_fetch_details(id_list)
         for articles in all_articles:
