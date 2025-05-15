@@ -18,7 +18,7 @@ NEO4J_USERNAME = st.secrets["NEO4J_USERNAME"]
 NEO4J_PASSWORD = st.secrets["NEO4J_PASSWORD"]
 # Provide your email to use Entrez
 Entrez.email = "chatterjeesubhodeep08@gmial.com"
-api ="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"
+api =st.secrets["api"]
 model =ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct",api_key=api)
 def clear_db(tx):
     tx.run("MATCH (n) DETACH DELETE n")
